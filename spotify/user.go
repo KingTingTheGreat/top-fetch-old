@@ -1,0 +1,81 @@
+package spotify
+
+import "fmt"
+import "encoding/json"
+
+type Image struct {
+	Height int    `json:"height"`
+	Width  int    `json:"width"`
+	Url    string `json:"url"`
+}
+
+type Artist struct {
+	Name string `json:"name"`
+	Href string `json:"href"`
+	Uri  string `json:"uri"`
+}
+
+type Album struct {
+	Name        string   `json:"name"`
+	Href        string   `json:"href"`
+	Uri         string   `json:"uri"`
+	Artists     []Artist `json:"artists"`
+	ReleaseDate string   `json:"release_date"`
+	TotalTracks int      `json:"total_tracks"`
+	Images      []Image  `json:"images"`
+}
+
+type Track struct {
+	Name        string   `json:"name"`
+	Album       Album    `json:"album"`
+	Artists     []Artist `json:"artists"`
+	Uri         string   `json:"uri"`
+	Href        string   `json:"href"`
+	TrackNumber int      `json:"track_number"`
+	Popularity  int      `json:"popularity"`
+}
+
+type ProfileResponse struct {
+	DisplayName string `json:"display_name"`
+	Href        string `json:"href"`
+	SpotifyId   string `json:"id"`
+}
+
+func GetUserProfile(accessToken, refreshToken string) (string, string, error) {
+	body, newAccessToken, err := spotifyRequest(accessToken, refreshToken, "https://api.spotify.com/v1/me")
+	if err != nil {
+		return "", "", err
+	}
+
+	var userProfileRes ProfileResponse
+	if err := json.Unmarshal(body, &userProfileRes); err != nil {
+		return "", "", err
+	}
+
+	return userProfileRes.SpotifyId, newAccessToken, nil
+}
+
+type TopTracksResponse struct {
+	Items []Track `json:"items"`
+	Total int     `json:"total"`
+	Limit int     `json:"limit"`
+}
+
+func GetUserTopTrack(accessToken, refreshToken string) (Track, string, error) {
+	body, newAccessToken, err := spotifyRequest(accessToken, refreshToken, "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=1")
+	if err != nil {
+		return Track{}, "", err
+	}
+
+	var topTracksResponse TopTracksResponse
+	if err := json.Unmarshal(body, &topTracksResponse); err != nil {
+		return Track{}, "", err
+	}
+
+	if len(topTracksResponse.Items) == 0 {
+		return Track{}, "", fmt.Errorf("no top track found")
+	}
+
+	return topTracksResponse.Items[0], newAccessToken, nil
+
+}

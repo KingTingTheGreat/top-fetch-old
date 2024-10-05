@@ -1,0 +1,9 @@
+{
+	"buildCommand": "curl -L https://github.com/a-h/templ/releases/download/v0.2.778/templ_Linux_x86_64.tar.gz | tar -xz && ./templ generate",
+	"routes": [
+		{
+			"src": "/.*",
+			"dest": "api/index.go"
+		}
+	]
+}
