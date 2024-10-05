@@ -1,5 +1,7 @@
 package tmplts 
 
+import "strings"
+
 templ head(title string) {
 	<head>
 		<meta charset="UTF-8"/>
@@ -7,29 +9,31 @@ templ head(title string) {
 		<title>
 			{ title }
 		</title>
+		<link href="/public/styles.css" rel="stylesheet"/>
 		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
 	</head>
 }
 
 templ navLink(url string, text string) {
-	<a href={ templ.SafeURL(url) } style="padding: 0.25rem; margin: 0.5rem; text-decoration: none; color: black;">{ text }</a>
+	<a
+		href={ templ.SafeURL(url) }
+		style="padding: 0.25rem; margin: 0.25rem; text-decoration: none; color: black;"
+		if !strings.HasPrefix(url, "/") {
+			target="_blank"
+		}
+	>{ text }</a>
 }
 
 templ header() {
 	<header style="display: flex; justify-content: space-between; background-color: lightskyblue; align-items: center;">
-		<h2 style="padding: 0.25rem; margin: 0.5rem;">TopFetch</h2>
-		<nav>
-			@navLink("/", "Home")
-			@navLink("/auth/log-date", "Log Date")
-			@navLink("/auth/entry", "Entry")
+		<a href={ templ.SafeURL("/") } style="padding: 0.25rem; margin: 0.25rem; text-decoration: none; color: black;">
+			<h2 style="padding: 0.25rem; margin: 0.5rem;">TopFetch</h2>
+		</a>
+		<nav style="margin: 0.1rem; padding: 0.1rem;">
+			@navLink("/sign-in", "Sign In")
+			@navLink("https://github.com/KingTingTheGreat/fetch-spotify-cli", "CLI")
 		</nav>
 	</header>
-}
-
-templ footer() {
-	<footer style="position: fixed; left: 0; bottom: 0; width: 100vw; background-color: green; text-align: center;">
-		<p>footer</p>
-	</footer>
 }
 
 templ LayoutComponent(content templ.Component, title string) {
@@ -39,7 +43,6 @@ templ LayoutComponent(content templ.Component, title string) {
 		<body>
 			@header()
 			@content
-			@footer()
 		</body>
 	</html>
 }
@@ -51,7 +54,6 @@ templ LayoutString(message string, title string) {
 		<body>
 			@header()
 			{ message }
-			@footer()
 		</body>
 	</html>
 }

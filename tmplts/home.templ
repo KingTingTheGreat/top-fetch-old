@@ -2,9 +2,6 @@ package tmplts
 
 templ Home() {
 	<main>
-		<form action="/auth/login" method="POST">
-			<input type="password" name="password" placeholder="Password"/>
-			<input type="submit" value="Login"/>
-		</form>
+		<a class="test" href={ templ.SafeURL("/sign-in") }>Sign In with Spotify</a>
 	</main>
-}
+}

@@ -2,14 +2,19 @@ package router
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/kingtingthegreat/top-fetch/handlers"
 	"github.com/kingtingthegreat/top-fetch/spotify"
-	// "github.com/kingtingthegreat/top-fetch/tmplts"
 )
 
 func Router() *http.ServeMux {
 	router := http.NewServeMux()
+
+	if os.Getenv("ENVIRONMENT") == "dev" {
+		fileServer := http.FileServer(http.Dir("./public"))
+		router.Handle("/public/", http.StripPrefix("/public/", fileServer))
+	}
 
 	router.HandleFunc("/", handlers.HomePageHandler)
 
