@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// sends a request to the specified endpoint and returns the response bytes
 func spotifyRequest(accessToken, refreshToken, endpoint string) ([]byte, string, error) {
 	requestFunc := func(accessToken, endpoint string) ([]byte, error) {
 		req, err := http.NewRequest("GET", endpoint, nil)

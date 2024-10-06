@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// Takes in RefreshToken and returns a new AccessToken
 func RefreshAccessToken(refreshToken string) (string, error) {
 	data := url.Values{}
 	data.Set("grant_type", "refresh_token")

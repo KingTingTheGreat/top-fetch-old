@@ -41,6 +41,9 @@ type ProfileResponse struct {
 	SpotifyId   string `json:"id"`
 }
 
+// Takes in AccessToken and RefreshToken.
+// Returns user's SpotifyId.
+// If the provided AccessToken has expired, return the new AccessToken.
 func GetUserProfile(accessToken, refreshToken string) (string, string, error) {
 	body, newAccessToken, err := spotifyRequest(accessToken, refreshToken, "https://api.spotify.com/v1/me")
 	if err != nil {
@@ -61,6 +64,9 @@ type TopTracksResponse struct {
 	Limit int     `json:"limit"`
 }
 
+// Takes in AccessToken and RefreshToken.
+// Returns user's top song of type Track.
+// If the provided AccessToken has expired, return the new AccessToken.
 func GetUserTopTrack(accessToken, refreshToken string) (Track, string, error) {
 	body, newAccessToken, err := spotifyRequest(accessToken, refreshToken, "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=1")
 	if err != nil {
