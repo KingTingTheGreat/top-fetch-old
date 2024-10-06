@@ -2,7 +2,6 @@ package router
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/kingtingthegreat/top-fetch/handlers"
 	"github.com/kingtingthegreat/top-fetch/spotify"
@@ -11,12 +10,8 @@ import (
 func Router() *http.ServeMux {
 	router := http.NewServeMux()
 
-	if os.Getenv("ENVIRONMENT") == "dev" {
-		fileServer := http.FileServer(http.Dir("./public"))
-		router.Handle("/public/", http.StripPrefix("/public/", fileServer))
-	}
-
 	router.HandleFunc("/", handlers.HomePageHandler)
+	router.HandleFunc("/documentation", handlers.DocumentationHandler)
 
 	router.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)

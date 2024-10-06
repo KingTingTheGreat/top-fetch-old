@@ -10,6 +10,7 @@ templ head(title string) {
 			{ title }
 		</title>
 		<link href="/public/styles.css" rel="stylesheet"/>
+		@Stylesheet()
 		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
 	</head>
 }
@@ -17,7 +18,7 @@ templ head(title string) {
 templ navLink(url string, text string) {
 	<a
 		href={ templ.SafeURL(url) }
-		style="padding: 0.25rem; margin: 0.25rem; text-decoration: none; color: black;"
+		class="nav-link"
 		if !strings.HasPrefix(url, "/") {
 			target="_blank"
 		}
@@ -26,13 +27,20 @@ templ navLink(url string, text string) {
 
 templ header() {
 	<header style="display: flex; justify-content: space-between; background-color: lightskyblue; align-items: center;">
-		<a href={ templ.SafeURL("/") } style="padding: 0.25rem; margin: 0.25rem; text-decoration: none; color: black;">
-			<h2 style="padding: 0.25rem; margin: 0.5rem;">TopFetch</h2>
-		</a>
-		<nav style="margin: 0.1rem; padding: 0.1rem;">
-			@navLink("/sign-in", "Sign In")
-			@navLink("https://github.com/KingTingTheGreat/fetch-spotify-cli", "CLI")
+		<nav style="display: flex; align-items: center;">
+			<a href={ templ.SafeURL("/") } style="padding: 0.25rem; margin: 0.5rem; text-decoration: none; color: black;">
+				<h2>TopFetch</h2>
+			</a>
+			<div style="margin: 0.1rem; padding: 0.1rem;">
+				@navLink("https://github.com/KingTingTheGreat/fetch-spotify-cli", "CLI")
+				@navLink("/documentation", "Documentation")
+				@navLink("https://github.com/KingTingTheGreat/top-fetch", "GitHub")
+			</div>
 		</nav>
+		<div>
+			@navLink("/sign-in", "Sign In")
+			@navLink("/sign-in", "Retrive ID")
+		</div>
 	</header>
 }
 
