@@ -16,7 +16,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	clientId := os.Getenv("SPOTIFY_CLIEN_ID")
+	clientId := os.Getenv("SPOTIFY_CLIENT_ID")
 	clientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
 	redirectUri := os.Getenv("SPOTIFY_REDIRECT_URI")
 
