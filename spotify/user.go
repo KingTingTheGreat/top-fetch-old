@@ -1,7 +1,10 @@
 package spotify
 
-import "fmt"
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
 
 type Image struct {
 	Height int    `json:"height"`
@@ -68,11 +71,13 @@ type TopTracksResponse struct {
 // Returns user's top song of type Track.
 // If the provided AccessToken has expired, return the new AccessToken.
 func GetUserTopTrack(clientId, clientSecret, accessToken, refreshToken string) (Track, string, error) {
+	log.Println("GetUserTopTrack()")
 	body, newAccessToken, err := spotifyRequest(clientId, clientSecret, accessToken, refreshToken, "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=1")
 	if err != nil {
 		return Track{}, "", err
 	}
 
+	log.Println("unmarshalling json")
 	var topTracksResponse TopTracksResponse
 	if err := json.Unmarshal(body, &topTracksResponse); err != nil {
 		return Track{}, "", err
