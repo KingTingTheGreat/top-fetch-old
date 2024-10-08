@@ -6,15 +6,14 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
-func AuthUrl() string {
+func AuthUrl(clientId, redirectUri string) string {
 	params := url.Values{}
-	params.Set("client_id", os.Getenv("SPOTIFY_CLIENT_ID"))
+	params.Set("client_id", clientId)
 	params.Set("response_type", "code")
-	params.Set("redirect_uri", os.Getenv("SPOTIFY_REDIRECT_URI"))
+	params.Set("redirect_uri", redirectUri)
 	params.Set("scope", "user-top-read user-read-email")
 
 	return fmt.Sprintf("%s?%s", "https://accounts.spotify.com/authorize", params.Encode())
@@ -27,18 +26,18 @@ type TokenResponse struct {
 	ExpiresIn    int    `json:"expires_in"`
 }
 
-func ExchangeCode(code string) (string, string, error) {
+func ExchangeCode(clientId, clientSecret, redirectUri, code string) (string, string, error) {
 	params := url.Values{}
 	params.Set("grant_type", "authorization_code")
 	params.Set("code", code)
-	params.Set("redirect_uri", os.Getenv("SPOTIFY_REDIRECT_URI"))
+	params.Set("redirect_uri", redirectUri)
 
 	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(params.Encode()))
 	if err != nil {
 		return "", "", err
 	}
 
-	req.SetBasicAuth(os.Getenv("SPOTIFY_CLIENT_ID"), os.Getenv("SPOTIFY_CLIENT_SECRET"))
+	req.SetBasicAuth(clientId, clientSecret)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	client := &http.Client{}

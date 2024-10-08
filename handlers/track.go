@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/kingtingthegreat/top-fetch/db"
 	"github.com/kingtingthegreat/top-fetch/spotify"
@@ -22,7 +23,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	track, newAccessToken, err := spotify.GetUserTopTrack(user.AccessToken, user.RefreshToken)
+	track, newAccessToken, err := spotify.GetUserTopTrack(os.Getenv("SPOTIFY_CLIENT_ID"), os.Getenv("SPOTIFY_CLIENT_SECRET"), user.AccessToken, user.RefreshToken)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("something went wrong. please try again."))

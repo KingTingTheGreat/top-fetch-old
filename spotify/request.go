@@ -7,7 +7,7 @@ import (
 )
 
 // sends a request to the specified endpoint and returns the response bytes
-func spotifyRequest(accessToken, refreshToken, endpoint string) ([]byte, string, error) {
+func spotifyRequest(clientId, clientSecret, accessToken, refreshToken, endpoint string) ([]byte, string, error) {
 	requestFunc := func(accessToken, endpoint string) ([]byte, error) {
 		req, err := http.NewRequest("GET", endpoint, nil)
 		if err != nil {
@@ -46,7 +46,7 @@ func spotifyRequest(accessToken, refreshToken, endpoint string) ([]byte, string,
 		return []byte{}, "", err
 	}
 
-	newAccessToken, err := RefreshAccessToken(refreshToken)
+	newAccessToken, err := RefreshAccessToken(clientId, clientSecret, refreshToken)
 	if err != nil {
 		return []byte{}, "", fmt.Errorf("could not refresh access")
 	}

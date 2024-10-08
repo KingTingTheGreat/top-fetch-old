@@ -2,6 +2,7 @@ package router
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/kingtingthegreat/top-fetch/handlers"
 	"github.com/kingtingthegreat/top-fetch/spotify"
@@ -19,7 +20,7 @@ func Router() *http.ServeMux {
 	})
 
 	router.HandleFunc("GET /sign-in", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, spotify.AuthUrl(), http.StatusSeeOther)
+		http.Redirect(w, r, spotify.AuthUrl(os.Getenv("SPOTIFY_CLIENT_ID"), os.Getenv("SPOTIFY_REDIRECT_URI")), http.StatusSeeOther)
 	})
 	router.HandleFunc("GET /callback", handlers.CallbackHandler)
 

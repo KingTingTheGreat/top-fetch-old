@@ -5,12 +5,11 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
 // Takes in RefreshToken and returns a new AccessToken
-func RefreshAccessToken(refreshToken string) (string, error) {
+func RefreshAccessToken(clientId, clientSecret, refreshToken string) (string, error) {
 	data := url.Values{}
 	data.Set("grant_type", "refresh_token")
 	data.Set("refresh_token", refreshToken)
@@ -20,7 +19,7 @@ func RefreshAccessToken(refreshToken string) (string, error) {
 		return "", err
 	}
 
-	req.SetBasicAuth(os.Getenv("SPOTIFY_CLIENT_ID"), os.Getenv("SPOTIFY_CLIENT_SECRET"))
+	req.SetBasicAuth(clientId, clientSecret)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	client := &http.Client{}
