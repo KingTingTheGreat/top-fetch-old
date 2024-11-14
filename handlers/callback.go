@@ -37,7 +37,16 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 		accessToken = newAccessToken
 	}
 
-	user := db.DBUser{
+	// recover existing id
+	user, err := db.GetUserBySpotifyId(spotifyId)
+	if err == nil {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(user.Id))
+		return
+	}
+
+	// new user, create a new id for them
+	user = db.DBUser{
 		SpotifyId:    spotifyId,
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,

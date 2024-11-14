@@ -32,7 +32,7 @@ func generateId() string {
 
 	for {
 		id := randStr()
-		_, err := GetUser(id)
+		_, err := GetUserById(id)
 		if err != nil {
 			return id
 		}
@@ -70,17 +70,22 @@ func getCollection(collectionName string) *mongo.Collection {
 	return db.Database(os.Getenv("DB_NAME") + env).Collection(collectionName)
 }
 
-func GetUser(id string) (DBUser, error) {
+func GetUserById(id string) (DBUser, error) {
 	var user DBUser
 	err := userColletion.FindOne(context.Background(), bson.M{"id": id}).Decode(&user)
 	return user, err
 }
 
+func GetUserBySpotifyId(spotifyId string) (DBUser, error) {
+	var user DBUser
+	err := userColletion.FindOne(context.Background(), bson.M{"spotifyId": spotifyId}).Decode(&user)
+	return user, err
+}
+
 func InsertUser(user DBUser) (string, error) {
 	user.Id = generateId()
-	log.Println(user)
 
-	_, err := userColletion.UpdateOne(context.Background(), bson.M{"spotifyId": user.SpotifyId}, map[string]interface{}{"$set": user}, options.Update().SetUpsert(true))
+	_, err := userColletion.InsertOne(context.Background(), user)
 	if err != nil {
 		log.Println(err)
 		return "", err

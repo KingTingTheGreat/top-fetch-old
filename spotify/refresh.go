@@ -3,7 +3,6 @@ package spotify
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -11,23 +10,18 @@ import (
 
 // Takes in RefreshToken and returns a new AccessToken
 func RefreshAccessToken(clientId, clientSecret, refreshToken string) (string, error) {
-	log.Println("RefreshAccessToken()")
-	log.Println("setting data")
 	data := url.Values{}
 	data.Set("grant_type", "refresh_token")
 	data.Set("refresh_token", refreshToken)
 
-	log.Println("creating request")
 	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(data.Encode()))
 	if err != nil {
 		return "", err
 	}
 
-	log.Println("setting authorization headers")
 	req.SetBasicAuth(clientId, clientSecret)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	log.Println("sending request")
 	client := &http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
@@ -36,7 +30,6 @@ func RefreshAccessToken(clientId, clientSecret, refreshToken string) (string, er
 
 	defer res.Body.Close()
 
-	log.Println("reading response body")
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return "", err

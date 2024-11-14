@@ -16,7 +16,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := db.GetUser(id)
+	user, err := db.GetUserById(id)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("invalid id. user not found."))

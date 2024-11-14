@@ -48,6 +48,7 @@ func ExchangeCode(clientId, clientSecret, redirectUri, code string) (string, str
 
 	defer res.Body.Close()
 
+	// json.NewDecoder(res.Body).Decode(&var)
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return "", "", err
