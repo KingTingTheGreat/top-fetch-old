@@ -12,5 +12,5 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/404", http.StatusSeeOther)
 		return
 	}
-	tmplts.LayoutComponent(tmplts.Home(), "TopFetch").Render(r.Context(), w)
+	tmplts.LayoutComponent(tmplts.Home(), "Top Fetch").Render(r.Context(), w)
 }

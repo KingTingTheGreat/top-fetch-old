@@ -6,13 +6,14 @@ import (
 
 	"github.com/kingtingthegreat/top-fetch/db"
 	"github.com/kingtingthegreat/top-fetch/spotify"
+	"github.com/kingtingthegreat/top-fetch/tmplts"
 )
 
 func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
 	if code == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("no authorization code"))
+		tmplts.LayoutString("something went wrong. please try again.", "Internal Server Error").Render(r.Context(), w)
 		return
 	}
 
@@ -23,14 +24,14 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	accessToken, refreshToken, err := spotify.ExchangeCode(clientId, clientSecret, redirectUri, code)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("something went wrong. please try again."))
+		tmplts.LayoutString("something went wrong. please try again.", "Internal Server Error").Render(r.Context(), w)
 		return
 	}
 
 	spotifyId, newAccessToken, err := spotify.GetUserProfile(clientId, clientSecret, accessToken, refreshToken)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("something went wrong. please try again."))
+		tmplts.LayoutString("something went wrong. please try again.", "Internal Server Error").Render(r.Context(), w)
 		return
 	}
 	if newAccessToken != "" {
@@ -41,7 +42,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	user, err := db.GetUserBySpotifyId(spotifyId)
 	if err == nil {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(user.Id))
+		tmplts.LayoutComponent(tmplts.Callback(user.Id), "Top Fetch").Render(r.Context(), w)
 		return
 	}
 
@@ -54,10 +55,10 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := db.InsertUser(user)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("something went wrong. please try again."))
+		tmplts.LayoutString("something went wrong. please try again.", "Internal Server Error").Render(r.Context(), w)
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(id))
+	tmplts.LayoutComponent(tmplts.Callback(id), "Top Fetch").Render(r.Context(), w)
+	return
 }
