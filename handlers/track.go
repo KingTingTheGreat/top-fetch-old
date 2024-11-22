@@ -42,5 +42,5 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(track.Name + " - " + track.Artists[0].Name + "\x1d" + track.Album.Images[0].Url))
+	w.Write([]byte(track.Album.Images[0].Url + "\x1d" + track.Name + " - " + track.Artists[0].Name))
 }
