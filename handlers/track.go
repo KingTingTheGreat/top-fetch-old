@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 	"os"
 
@@ -11,6 +12,7 @@ import (
 func TrackHandler(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	if id == "" {
+		log.Println("no id")
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("no id provided"))
 		return
@@ -18,6 +20,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 
 	user, err := db.GetUserById(id)
 	if err != nil {
+		log.Println("no user found")
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("invalid id. user not found."))
 		return
