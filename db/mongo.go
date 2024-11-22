@@ -16,8 +16,8 @@ import (
 type DBUser struct {
 	SpotifyId    string `bson:"spotifyId"`
 	Id           string `bson:"id"`
-	AccessToken  string
-	RefreshToken string
+	AccessToken  string `bson:"accessToken"`
+	RefreshToken string `bson:"refreshToken"`
 }
 
 func generateId() string {
