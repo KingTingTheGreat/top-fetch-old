@@ -71,7 +71,7 @@ func getCollection(collectionName string) *mongo.Collection {
 }
 
 func GetUserById(id string) (DBUser, error) {
-	log.Println("getting user by id")
+	log.Println("getting user by id", id)
 	var user DBUser
 	err := userColletion.FindOne(context.Background(), bson.M{"id": id}).Decode(&user)
 	return user, err
