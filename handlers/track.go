@@ -28,6 +28,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 
 	track, newAccessToken, err := spotify.GetUserTopTrack(os.Getenv("SPOTIFY_CLIENT_ID"), os.Getenv("SPOTIFY_CLIENT_SECRET"), user.AccessToken, user.RefreshToken)
 	if err != nil {
+		log.Println("could not get track")
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("something went wrong. please try again."))
 		return
@@ -35,13 +36,7 @@ func TrackHandler(w http.ResponseWriter, r *http.Request) {
 
 	if newAccessToken != "" {
 		user.AccessToken = newAccessToken
-		_, err := db.InsertUser(user)
-		if err != nil {
-
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("something went wrong. please try again."))
-			return
-		}
+		db.UpdateUser(user)
 	}
 
 	w.WriteHeader(http.StatusOK)
