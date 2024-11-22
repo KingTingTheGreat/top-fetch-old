@@ -26,7 +26,7 @@ templ navLink(url string, text string) {
 }
 
 templ header() {
-	<header style="display: flex; justify-content: space-between; background-color: lightskyblue; align-items: center;">
+	<header className="flex justify-between bg-blue-200 items-center">
 		<nav style="display: flex; align-items: center;">
 			<a href={ templ.SafeURL("/") } style="padding: 0.25rem; margin: 0.5rem; text-decoration: none; color: black;">
 				<h2>TopFetch</h2>

@@ -11,6 +11,8 @@ import (
 func Router() *http.ServeMux {
 	router := http.NewServeMux()
 
+	router.HandleFunc("/styles/output.css", StaticStyles)
+
 	router.HandleFunc("/", handlers.HomePageHandler)
 	router.HandleFunc("/documentation", handlers.DocumentationHandler)
 
