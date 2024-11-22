@@ -13,5 +13,6 @@ func main() {
 
 	server := server.Server()
 	log.Println("Server running at http://localhost:8080")
-	server.ListenAndServe()
+	err := server.ListenAndServe()
+	log.Fatal(err.Error())
 }
