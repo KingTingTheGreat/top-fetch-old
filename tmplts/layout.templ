@@ -17,7 +17,7 @@ templ head(title string) {
 templ navLink(url string, text string) {
 	<a
 		href={ templ.SafeURL(url) }
-		class="p-1 m-1 no-underline text-black hover:bg-green-200"
+		class="p-1 m-1 no-underline text-black hover:underline"
 		if !strings.HasPrefix(url, "/") {
 			target="_blank"
 		}
