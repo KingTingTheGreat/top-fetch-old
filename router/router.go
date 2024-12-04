@@ -14,7 +14,7 @@ func Router() *http.ServeMux {
 
 	router.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 
-	data, err := os.ReadFile("./public/index.html")
+	data, err := os.ReadFile("../public/index.html")
 	if err != nil {
 		log.Println("ERROR READING FILE", err)
 	} else {
