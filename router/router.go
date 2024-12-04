@@ -14,7 +14,7 @@ func Router() *http.ServeMux {
 	router.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 
 	router.HandleFunc("/", handlers.HomePageHandler)
-	router.HandleFunc("/documentation", handlers.DocumentationHandler)
+	router.HandleFunc("/docs", handlers.DocumentationHandler)
 
 	router.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
