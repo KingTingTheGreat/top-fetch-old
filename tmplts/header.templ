@@ -12,7 +12,7 @@ templ navLink(url string, text string) {
 	>{ text }</a>
 }
 
-templ Header(signedIn bool) {
+templ Header() {
 	<header class="flex justify-between items-center bg-purple-400">
 		<nav class="flex items-center">
 			<a href={ templ.SafeURL("/") } class="p-4 m-2 no-underline text-black font-medium text-3xl">
@@ -25,11 +25,7 @@ templ Header(signedIn bool) {
 			</div>
 		</nav>
 		<div class="m-1 py-1 px-4">
-			if signedIn {
-				@navLink("/sign-in", "Sign In")
-			} else {
-				@navLink("/sign-in", "Retrive ID")
-			}
+			@navLink("/sign-in", "Get ID")
 		</div>
 	</header>
 }
