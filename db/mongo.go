@@ -16,8 +16,8 @@ import (
 type DBUser struct {
 	SpotifyId    string `bson:"spotifyId"`
 	Id           string `bson:"id"`
-	AccessToken  string
-	RefreshToken string
+	AccessToken  string `bson:"accessToken"`
+	RefreshToken string `bson:"refreshToken"`
 }
 
 func generateId() string {
@@ -71,6 +71,7 @@ func getCollection(collectionName string) *mongo.Collection {
 }
 
 func GetUserById(id string) (DBUser, error) {
+	log.Println("getting user by id", id)
 	var user DBUser
 	err := userColletion.FindOne(context.Background(), bson.M{"id": id}).Decode(&user)
 	return user, err
@@ -92,4 +93,9 @@ func InsertUser(user DBUser) (string, error) {
 	}
 
 	return user.Id, nil
+}
+
+func UpdateUser(user DBUser) error {
+	_, err := userColletion.UpdateOne(context.Background(), bson.M{"id": user.Id}, bson.M{"$set": user})
+	return err
 }
