@@ -11,7 +11,7 @@ import (
 func Router() *http.ServeMux {
 	router := http.NewServeMux()
 
-	// router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	router.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 
 	router.HandleFunc("/", handlers.HomePageHandler)
 	router.HandleFunc("/documentation", handlers.DocumentationHandler)
