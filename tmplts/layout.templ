@@ -1,7 +1,5 @@
 package tmplts 
 
-import "strings"
-
 templ head(title string) {
 	<head>
 		<meta charset="UTF-8"/>
@@ -14,41 +12,12 @@ templ head(title string) {
 	</head>
 }
 
-templ navLink(url string, text string) {
-	<a
-		href={ templ.SafeURL(url) }
-		class="p-1 m-1 no-underline text-black hover:underline"
-		if !strings.HasPrefix(url, "/") {
-			target="_blank"
-		}
-	>{ text }</a>
-}
-
-templ header() {
-	<header class="flex justify-between items-center bg-purple-300">
-		<nav class="flex items-center">
-			<a href={ templ.SafeURL("/") } class="p-1 m-2 no-underline text-black text-3xl">
-				<h2>TopFetch</h2>
-			</a>
-			<div class="m-1 p-1">
-				@navLink("https://github.com/KingTingTheGreat/top-fetch-cli", "CLI")
-				@navLink("/documentation", "Documentation")
-				@navLink("https://github.com/KingTingTheGreat/top-fetch", "GitHub")
-			</div>
-		</nav>
-		<div>
-			@navLink("/sign-in", "Sign In")
-			@navLink("/sign-in", "Retrive ID")
-		</div>
-	</header>
-}
-
 templ LayoutComponent(content templ.Component, title string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head(title)
 		<body>
-			@header()
+			@Header()
 			@content
 		</body>
 	</html>
@@ -59,7 +28,7 @@ templ LayoutString(message string, title string) {
 	<html lang="en">
 		@head(title)
 		<body>
-			@header()
+			@Header()
 			{ message }
 		</body>
 	</html>

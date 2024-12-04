@@ -1,0 +1,32 @@
+package tmplts
+
+import "strings"
+
+templ navLink(url string, text string) {
+	<a
+		href={ templ.SafeURL(url) }
+		class="p-1 m-1 no-underline text-black hover:underline"
+		if !strings.HasPrefix(url, "/") {
+			target="_blank"
+		}
+	>{ text }</a>
+}
+
+templ Header() {
+	<header class="flex justify-between items-center bg-blue-300">
+		<nav class="flex items-center">
+			<a href={ templ.SafeURL("/") } class="p-1 m-2 no-underline text-black font-medium text-3xl">
+				<h2>TopFetch</h2>
+			</a>
+			<div class="m-1 p-1">
+				@navLink("https://github.com/KingTingTheGreat/top-fetch-cli", "CLI")
+				@navLink("/documentation", "Documentation")
+				@navLink("https://github.com/KingTingTheGreat/top-fetch", "GitHub")
+			</div>
+		</nav>
+		<div>
+			@navLink("/sign-in", "Sign In")
+			@navLink("/sign-in", "Retrive ID")
+		</div>
+	</header>
+}
