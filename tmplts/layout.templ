@@ -12,12 +12,14 @@ templ head(title string) {
 	</head>
 }
 
+var defaultStyles = "bg-zinc-900 text-white"
+
 templ LayoutComponent(content templ.Component, title string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head(title)
-		<body>
-			@Header()
+		<body class={ defaultStyles }>
+			@Header(title == "Docs")
 			@content
 		</body>
 	</html>
@@ -27,8 +29,8 @@ templ LayoutString(message string, title string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head(title)
-		<body>
-			@Header()
+		<body class={ defaultStyles }>
+			@Header(title == "Docs")
 			{ message }
 		</body>
 	</html>

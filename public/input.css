@@ -3,15 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.ibm-plex-mono-regular {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
-}
 * {
   font-family: "IBM Plex Mono", monospace !important; /* Use !important if necessary */
-}
-.test {
-  background-color: lightsalmon;
-  color: red;
 }
