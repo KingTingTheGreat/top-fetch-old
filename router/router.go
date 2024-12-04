@@ -18,7 +18,7 @@ func Router() *http.ServeMux {
 
 	router.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("OK"))
+		w.Write([]byte("OK!"))
 	})
 
 	router.HandleFunc("GET /sign-in", func(w http.ResponseWriter, r *http.Request) {
