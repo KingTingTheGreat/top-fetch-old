@@ -3,14 +3,14 @@ package tmplts
 templ docLink(url string, text string) {
 	<a
 		href={ templ.SafeURL(url) }
-		class="doc-link"
+		class="p-1 m-2 no-underline text-black hover:underline"
 	>{ text }</a>
 }
 
 templ Documentation() {
 	<div>
-		<div style="width: 100vw; display: flex; justify-content: center;">
-			<nav style="display: flex; justify-content: space-around; width: 70%;">
+		<div class="w-screen flex justify-center">
+			<nav class="flex justify-around w-[70%]">
 				@docLink("", "What's my ID?")
 				@docLink("", "Lost your ID?")
 				@docLink("", "Need you change your ID?")

@@ -3,7 +3,7 @@ module github.com/kingtingthegreat/top-fetch
 go 1.23.1
 
 require (
-	github.com/a-h/templ v0.2.778
+	github.com/a-h/templ v0.2.793
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.17.1
 )
