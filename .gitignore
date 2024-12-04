@@ -4,3 +4,4 @@ tmp/
 top-fetch
 tmplts/*_templ.go
 public/output.css
+.vercel
