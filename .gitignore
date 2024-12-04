@@ -3,3 +3,5 @@ tmp/
 *.exe
 top-fetch
 tmplts/*_templ.go
+public/output.css
+.vercel

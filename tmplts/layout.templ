@@ -1,7 +1,5 @@
 package tmplts 
 
-import "strings"
-
 templ head(title string) {
 	<head>
 		<meta charset="UTF-8"/>
@@ -9,47 +7,19 @@ templ head(title string) {
 		<title>
 			{ title }
 		</title>
-		<link href="/public/styles.css" rel="stylesheet"/>
-		@Stylesheet()
+		<link href="/public/output.css" rel="stylesheet"/>
 		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
 	</head>
 }
 
-templ navLink(url string, text string) {
-	<a
-		href={ templ.SafeURL(url) }
-		class="nav-link"
-		if !strings.HasPrefix(url, "/") {
-			target="_blank"
-		}
-	>{ text }</a>
-}
-
-templ header() {
-	<header style="display: flex; justify-content: space-between; background-color: lightskyblue; align-items: center;">
-		<nav style="display: flex; align-items: center;">
-			<a href={ templ.SafeURL("/") } style="padding: 0.25rem; margin: 0.5rem; text-decoration: none; color: black;">
-				<h2>TopFetch</h2>
-			</a>
-			<div style="margin: 0.1rem; padding: 0.1rem;">
-				@navLink("https://github.com/KingTingTheGreat/top-fetch-cli", "CLI")
-				@navLink("/documentation", "Documentation")
-				@navLink("https://github.com/KingTingTheGreat/top-fetch", "GitHub")
-			</div>
-		</nav>
-		<div>
-			@navLink("/sign-in", "Sign In")
-			@navLink("/sign-in", "Retrive ID")
-		</div>
-	</header>
-}
+var defaultStyles = "bg-zinc-900 text-white"
 
 templ LayoutComponent(content templ.Component, title string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head(title)
-		<body>
-			@header()
+		<body class={ defaultStyles }>
+			@Header(title == "Docs")
 			@content
 		</body>
 	</html>
@@ -59,8 +29,8 @@ templ LayoutString(message string, title string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head(title)
-		<body>
-			@header()
+		<body class={ defaultStyles }>
+			@Header(title == "Docs")
 			{ message }
 		</body>
 	</html>

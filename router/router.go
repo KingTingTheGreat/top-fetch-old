@@ -11,12 +11,14 @@ import (
 func Router() *http.ServeMux {
 	router := http.NewServeMux()
 
+	router.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
+
 	router.HandleFunc("/", handlers.HomePageHandler)
-	router.HandleFunc("/documentation", handlers.DocumentationHandler)
+	router.HandleFunc("/docs", handlers.DocumentationHandler)
 
 	router.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("OK"))
+		w.Write([]byte("OK!"))
 	})
 
 	router.HandleFunc("GET /sign-in", func(w http.ResponseWriter, r *http.Request) {
