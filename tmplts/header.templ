@@ -12,21 +12,24 @@ templ navLink(url string, text string) {
 	>{ text }</a>
 }
 
-templ Header() {
-	<header class="flex justify-between items-center bg-blue-300">
+templ Header(signedIn bool) {
+	<header class="flex justify-between items-center bg-purple-400">
 		<nav class="flex items-center">
-			<a href={ templ.SafeURL("/") } class="p-1 m-2 no-underline text-black font-medium text-3xl">
+			<a href={ templ.SafeURL("/") } class="p-4 m-2 no-underline text-black font-medium text-3xl">
 				<h2>TopFetch</h2>
 			</a>
-			<div class="m-1 p-1">
+			<div class="m-1 py-1 px-4">
 				@navLink("https://github.com/KingTingTheGreat/top-fetch-cli", "CLI")
 				@navLink("/documentation", "Documentation")
 				@navLink("https://github.com/KingTingTheGreat/top-fetch", "GitHub")
 			</div>
 		</nav>
-		<div>
-			@navLink("/sign-in", "Sign In")
-			@navLink("/sign-in", "Retrive ID")
+		<div class="m-1 py-1 px-4">
+			if signedIn {
+				@navLink("/sign-in", "Sign In")
+			} else {
+				@navLink("/sign-in", "Retrive ID")
+			}
 		</div>
 	</header>
 }

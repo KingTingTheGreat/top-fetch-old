@@ -17,7 +17,7 @@ templ LayoutComponent(content templ.Component, title string) {
 	<html lang="en">
 		@head(title)
 		<body>
-			@Header()
+			@Header(false)
 			@content
 		</body>
 	</html>
@@ -28,7 +28,7 @@ templ LayoutString(message string, title string) {
 	<html lang="en">
 		@head(title)
 		<body>
-			@Header()
+			@Header(true)
 			{ message }
 		</body>
 	</html>
