@@ -1,6 +1,7 @@
 package router
 
 import (
+	"log"
 	"net/http"
 	"os"
 
@@ -12,6 +13,13 @@ func Router() *http.ServeMux {
 	router := http.NewServeMux()
 
 	router.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
+
+	data, err := os.ReadFile("./public/index.html")
+	if err != nil {
+		log.Println("ERROR READING FILE", err)
+	} else {
+		log.Println("SUCCESS READ FILE", string(data))
+	}
 
 	router.HandleFunc("/", handlers.HomePageHandler)
 	router.HandleFunc("/documentation", handlers.DocumentationHandler)
