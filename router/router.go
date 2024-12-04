@@ -12,9 +12,9 @@ import (
 func Router() *http.ServeMux {
 	router := http.NewServeMux()
 
-	router.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
+	router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
-	data, err := os.ReadFile("../public/index.html")
+	data, err := os.ReadFile("../static/index.html")
 	if err != nil {
 		log.Println("ERROR READING FILE", err)
 	} else {
