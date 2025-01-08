@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["go", "templ"]
+nixPkgs = ["go", "templ", "nodejs_23"]
 
 [phases.install]
 cmds = [
