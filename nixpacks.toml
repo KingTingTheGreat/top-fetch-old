@@ -2,7 +2,11 @@
 nixPkgs = ["go", "templ"]
 
 [phases.install]
-cmds = ["go install github.com/a-h/templ/cmd/templ@latest", "npx tailwindcss -i ./public/input.css -o ./public/output.css"]
+cmds = [
+    "go install github.com/a-h/templ/cmd/templ@latest",
+    "npm i -g npx",
+    "npx tailwindcss -i ./public/input.css -o ./public/output.css"
+]
 
 [phases.build]
 cmds = ["templ generate", "go build -o out ./main.go"]
