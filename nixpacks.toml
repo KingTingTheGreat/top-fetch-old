@@ -2,7 +2,7 @@
 nixPkgs = ["go", "templ"]
 
 [phases.install]
-cmds = ["go mod tidy"]
+cmds = ["go install github.com/a-h/templ/cmd/templ@latest"]
 
 [phases.build]
 cmds = ["templ generate", "go build -o out ./main.go"]
