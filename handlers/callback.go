@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/kingtingthegreat/top-fetch/db"
-	"github.com/kingtingthegreat/top-fetch/spotify"
-	"github.com/kingtingthegreat/top-fetch/tmplts"
+	"github.com/kingtingthegreat/top-fetch-old/db"
+	"github.com/kingtingthegreat/top-fetch-old/spotify"
+	"github.com/kingtingthegreat/top-fetch-old/tmplts"
 )
 
 func CallbackHandler(w http.ResponseWriter, r *http.Request) {

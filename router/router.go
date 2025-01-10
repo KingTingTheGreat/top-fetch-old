@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/kingtingthegreat/top-fetch/handlers"
-	"github.com/kingtingthegreat/top-fetch/spotify"
+	"github.com/kingtingthegreat/top-fetch-old/handlers"
+	"github.com/kingtingthegreat/top-fetch-old/spotify"
 )
 
 func Router() *http.ServeMux {

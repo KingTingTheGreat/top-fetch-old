@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/kingtingthegreat/top-fetch/db"
-	"github.com/kingtingthegreat/top-fetch/spotify"
+	"github.com/kingtingthegreat/top-fetch-old/db"
+	"github.com/kingtingthegreat/top-fetch-old/spotify"
 )
 
 func TrackHandler(w http.ResponseWriter, r *http.Request) {

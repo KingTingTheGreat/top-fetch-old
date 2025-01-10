@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/kingtingthegreat/top-fetch/server"
+	"github.com/kingtingthegreat/top-fetch-old/server"
 
 	"github.com/joho/godotenv"
 )

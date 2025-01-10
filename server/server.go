@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/kingtingthegreat/top-fetch/middleware"
-	"github.com/kingtingthegreat/top-fetch/router"
+	"github.com/kingtingthegreat/top-fetch-old/middleware"
+	"github.com/kingtingthegreat/top-fetch-old/router"
 	"net/http"
 )
 

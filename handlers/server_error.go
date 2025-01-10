@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/kingtingthegreat/top-fetch/tmplts"
+	"github.com/kingtingthegreat/top-fetch-old/tmplts"
 	"net/http"
 
 	"github.com/a-h/templ"

@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/kingtingthegreat/top-fetch/tmplts"
-	_ "github.com/kingtingthegreat/top-fetch/tmplts"
+	"github.com/kingtingthegreat/top-fetch-old/tmplts"
+	_ "github.com/kingtingthegreat/top-fetch-old/tmplts"
 )
 
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {

@@ -1,4 +1,4 @@
-module github.com/kingtingthegreat/top-fetch
+module github.com/kingtingthegreat/top-fetch-old
 
 go 1.23.1
 

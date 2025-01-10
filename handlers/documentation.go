@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/kingtingthegreat/top-fetch/tmplts"
+	"github.com/kingtingthegreat/top-fetch-old/tmplts"
 )
 
 func DocumentationHandler(w http.ResponseWriter, r *http.Request) {
